@@ -1,0 +1,4 @@
+<launch>
+   <node pkg="nuc_tcp" name="nuc_tcpserver_node_1" type="nuc_tcpserver_node" output="screen"/>
+   <node pkg="stm32_ros2serial" name="stm32_serialsend_node_1" type="stm32_serialsend_node" output="screen"/>
+</launch>
