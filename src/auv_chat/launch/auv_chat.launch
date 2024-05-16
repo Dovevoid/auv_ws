@@ -1,4 +1,13 @@
 <launch>
+   <!-- tcp接受遥控器信号 -->
    <node pkg="nuc_tcp" name="nuc_tcpserver_node_1" type="nuc_tcpserver_node" output="screen"/>
-   <node pkg="stm32_ros2serial" name="stm32_serialsend_node_1" type="stm32_serialsend_node" output="screen"/>
+   <!-- 机械臂自主 -->
+   <!-- 注意Python文件需要加上后缀 -->
+   <node pkg="stm32_ros2serial" name="servo_targetpoint_node_1" type="servo_targetpoint_node.py" output="screen"/>
+   <!-- stm32串口发送指令 -->
+   <arg name="servo_mode_flag" default="1" />
+   <node name="stm32_serialsend_node_1" pkg="stm32_ros2serial" type="stm32_serialsend_node" output="screen">
+      <param name="mode_flag" value="$(arg servo_mode_flag)" />
+   </node>
+   
 </launch>

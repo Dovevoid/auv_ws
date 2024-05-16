@@ -53,14 +53,17 @@
   <build_depend>rospy</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>nuc_tcp</build_depend>
+  <build_depend>stm32_ros2serial</build_depend>
   <build_export_depend>roscpp</build_export_depend>
   <build_export_depend>rospy</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
   <build_export_depend>nuc_tcp</build_export_depend>
+  <build_export_depend>stm32_ros2serial</build_export_depend>
   <exec_depend>roscpp</exec_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>nuc_tcp</exec_depend>
+  <exec_depend>stm32_ros2serial</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

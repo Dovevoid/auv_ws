@@ -54,21 +54,34 @@ void sendToSTM32(const std_msgs::String::ConstPtr& msg)
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "stm32_serialsend_node");
+    ros::NodeHandle n_area("~");
     ros::NodeHandle m;
-    
+    //注意使用判断必须使用全局sub
+    ros::Subscriber stm32_sub ;
     // 打开串口
     openserial(); 
-    // uint8_t mode_flag = 1;
-    // if(mode_flag == 0 )
-    // {
-    //     ros::Subscriber stm32_sub = m.subscribe<std_msgs::String>("targetAngle_topic", 10, sendToSTM32);   
-    // }
-    // else{ros::Subscriber stm32_sub = m.subscribe<std_msgs::String>("servo_controlsignal", 10, sendToSTM32);}
+
+    //舵机模式控制 0是自主 1是遥控 默认为1
+    int mode_flag;
+    //注意要使用局部句柄才能传参
+    n_area.param("mode_flag", mode_flag,1); // 读取 mode_flag 参数,如果未设置则默认为 1
+
+    if (mode_flag == 0)
+    {
+        // 自主抓取
+        stm32_sub = m.subscribe<std_msgs::String>("targetAngle_topic", 10, sendToSTM32);
+        ROS_INFO("auto servo_control");
+    }
+    else
+    {
+        // 遥控抓取
+        stm32_sub = m.subscribe<std_msgs::String>("servo_controlsignal", 10, sendToSTM32);
+        ROS_INFO("human servo_control");
+    }
     
-    //自主抓取
-    ros::Subscriber stm32_sub = m.subscribe<std_msgs::String>("targetAngle_topic", 10, sendToSTM32);
-    //遥控抓取
-    
+    // 自主抓取
+    // ros::Subscriber stm32_sub = m.subscribe<std_msgs::String>("targetAngle_topic", 10, sendToSTM32);
+
     ros::Rate rate(10);  // 设置循环频率为10Hz
     while (ros::ok())
     {
